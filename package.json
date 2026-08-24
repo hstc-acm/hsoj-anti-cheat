@@ -1,0 +1,10 @@
+{
+  "name": "hsoj-anti-cheat",
+  "version": "2.0.0",
+  "description": "Anti-cheat plugin for HSOJ",
+  "main": "index.ts",
+  "author": "VioletMizutsuneOrchid",
+  "dependencies": {
+    "hydrooj": "^5.0.1"
+  }
+}

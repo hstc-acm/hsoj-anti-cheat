@@ -1,0 +1,63 @@
+{% extends "manage_base.html" %}
+{% block manage_content %}
+<div class="section">
+  <div class="section__header">
+    <h1 class="section__title" data-heading>{{ _('Anti Cheat Mode') }}</h1>
+  </div>
+  <div class="section__body typo">
+    {% if saved %}
+      <blockquote class="note">{{ _('Saved') }}</blockquote>
+    {% endif %}
+    {% if reset %}
+      <blockquote class="note">{{ _('Last contest reset for user {0}.').format(resetUname) }}</blockquote>
+    {% endif %}
+
+    <h2>{{ _('Anti Cheat Mode') }}</h2>
+    <form method="post">
+      <input type="hidden" name="operation" value="save">
+      <p>
+        <label class="checkbox">
+          <input type="checkbox" name="enabled" {% if enabled %}checked{% endif %}>
+          {{ _('Enable Anti Cheat Mode') }}
+        </label>
+        <span class="tooltip" data-tooltip="{{ _('Enabling anti-cheating mode will prevent contestants from viewing other problems and the code submitted before the competition begins, and will log the IP addresses of submissions.') }}">&#9432;</span>
+      </p>
+      <p>
+        <label class="checkbox">
+          <input type="checkbox" name="forbidJoinOtherContest" {% if forbidJoinOtherContest %}checked{% endif %}>
+          {{ _('Forbid Join Other Contest') }}
+        </label>
+        <span class="tooltip" data-tooltip="{{ _('When multiple tournaments are being held simultaneously, we recommend enabling the option to prohibit participation in other tournaments while a current tournament is in progress, to prevent cheating by taking advantage of multiple tournaments.') }}">&#9432;</span>
+      </p>
+      <p><button type="submit" class="primary rounded button">{{ _('Save') }}</button></p>
+    </form>
+
+    <h2>{{ _('Reset User Last Contest') }}</h2>
+    <blockquote class="yellow">{{ _('Leave both Domain ID and Contest ID empty to clear the last contest. Leave only Domain ID empty to default to system domain.') }}</blockquote>
+    <form method="post">
+      <input type="hidden" name="operation" value="reset">
+      <div class="row">
+        <div class="medium-4 columns">
+          <label class="required">
+            {{ _('Username') }}
+            <input type="text" class="textbox" name="uname" required>
+          </label>
+        </div>
+        <div class="medium-4 columns">
+          <label>
+            {{ _('Domain ID') }}
+            <input type="text" class="textbox" name="hisDomainId" placeholder="e.g. system">
+          </label>
+        </div>
+        <div class="medium-4 columns">
+          <label>
+            {{ _('Contest ID (24-digit hex ObjectId)') }}
+            <input type="text" class="textbox" name="tid" pattern="^[0-9a-fA-F]{24}$">
+          </label>
+        </div>
+      </div>
+      <p><button type="submit" class="rounded button">{{ _('Reset') }}</button></p>
+    </form>
+  </div>
+</div>
+{% endblock %}
